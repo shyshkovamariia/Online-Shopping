@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онлайн Магазин</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/home.css">
+</head>
+<body>
+    <div id="header"></div>
+
+    <main>
+        <h1>Online Shopping</h1>
+        <a href="cart.html" id="cartIcon" class="cart-icon" title="Перейти до корзини">🛒</a>
+        
+        <button id="toggleFilterBtn" class="toggle-filter-btn" style="margin-left: 2%;">☰ Фільтри</button>
+        <div id="filterContainer" class="filter-container">
+            
+            <div class="filter-content">
+                <button id="closeFilterBtn" class="close-filter-btn">✖</button>
+                <h2>Фільтри</h2>
+                <details class="filter-section">
+                    <summary>Сортування</summary>
+                    <label for="sortByName">За назвою:</label>
+                    <select id="sortByName">
+                        <option value="asc">Від А до Я</option>
+                        <option value="desc">Від Я до А</option>
+                    </select>
+                    <label for="sortByPrice">За ціною:</label>
+                    <select id="sortByPrice">
+                        <option value="lowToHigh">Від дешевих до дорогих</option>
+                        <option value="highToLow">Від дорогих до дешевих</option>
+                    </select>
+                </details>
+
+                <details class="filter-section">
+                    <summary>Ціновий діапазон</summary>
+                    <div id="priceSlider"></div>
+                    <div>
+                        <input type="number" id="minPrice" placeholder="Мін" />
+                        <input type="number" id="maxPrice" placeholder="Макс" />
+                    </div>
+                </details>
+
+                <details class="filter-section">
+                    <summary>Пошук за ключовими словами</summary>
+                    <input type="text" id="keywordSearch" placeholder="Знайти за назвою, описом..." />
+                </details>
+
+                <details class="filter-section">
+                    <summary>Тип товару</summary>
+                    <label><input type="checkbox" value="Електроніка" class="categoryFilter" /> Електроніка</label>
+                    <label><input type="checkbox" value="Одяг" class="categoryFilter" /> Одяг</label>
+                    <label><input type="checkbox" value="Іграшки" class="categoryFilter" /> Іграшки</label>
+                </details>
+                <button id="resetFiltersBtn" class="reset-filters-btn">Скинути все</button>
+            </div>
+        </div>
+        <div id="newsSection" class="news-section">
+            <h2>Останні новини</h2>
+            <div id="newsList" class="news-list">
+                <!-- Новини будуть динамічно завантажуватись тут -->
+            </div>
+        </div>
+        <div id="newsDetails" class="news-details">
+            <!-- Деталі вибраної новини -->
+        </div>
+        <div class="products-container" id="productsContainer">
+            <!-- Product cards will be dynamically inserted here -->
+        </div>
+    </main>
+
+    
+    <div id="footer"></div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Кнопка "Наверх" -->
+    <button id="scrollToTopBtn" class="scroll-to-top-btn" style="display: none;">⬆ Наверх</button>
+
+    <script src="../assets/js/main.js"></script>
+
+</body>
+</html>
