@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кошик покупок</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/cart.css">
+</head>
+<body>
+    <div id="header"></div>
+<a href="index.html" id="backArrow" title="Повернутися назад">←</a>
+
+    <main>
+        <h1>Ваш кошик</h1>
+        <div id="cartContainer"></div>
+        <div class="charts-container">
+            <h3>Аналіз кошика</h3>
+            
+            <div class="chart-selector">
+                <button id="pieChartBtn" class="chart-btn active">Кругова діаграма</button>
+                <button id="barChartBtn" class="chart-btn">Гістограма</button>
+                <button id="lineChartBtn" class="chart-btn">Лінійна діаграма</button>
+            </div>
+            
+            <div class="chart-wrapper">
+                <div id="pieChartContainer" class="chart-container active">
+                    <canvas id="popularityPieChart"></canvas>
+                </div>
+                <div id="barChartContainer" class="chart-container">
+                    <canvas id="popularityBarChart"></canvas>
+                </div>
+                <div id="lineChartContainer" class="chart-container">
+                    <canvas id="popularityLineChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div id="cartSummary">
+            <h2>Підсумок</h2>
+            <p id="totalPrice"></p>
+            <button id="checkoutBtn">Оформити замовлення</button>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../assets/js/main.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+        const renderCart = () => {
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartContainer = document.getElementById('cartContainer');
+            cartContainer.innerHTML = '';
+
+            if (cartItems.length === 0) {
+                cartContainer.innerHTML = '<p>Ваш кошик порожній.</p>';
+                return;
+            }
+
+            let total = 0;
+            cartItems.forEach(item => {
+                const itemTotal = (item.price * item.quantity).toFixed(2); 
+                total += parseFloat(itemTotal); 
+                cartContainer.innerHTML += `
+                    <div class="cart-item">
+                        <h3>${item.title}</h3>
+                        <p>Ціна: ${item.price} грн</p>
+                        <p>Кількість: <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${item.id}, this.value)"></p>
+                        <p>Сума: ${itemTotal} грн</p>
+                        <button onclick="removeFromCart(${item.id})">Видалити</button>
+                    </div>
+                `;
+            });
+
+            document.getElementById('totalPrice').textContent = `Загальна сума: ${total} грн`;
+        };
+
+        const updateQuantity = (id, quantity) => {
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            const item = cartItems.find(item => item.id === id);
+            if (item) {
+                item.quantity = parseInt(quantity);
+                localStorage.setItem('cart', JSON.stringify(cartItems));
+                renderCart();
+            }
+        };
+
+        const removeFromCart = (id) => {
+            let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            cartItems = cartItems.filter(item => item.id !== id);
+            localStorage.setItem('cart', JSON.stringify(cartItems));
+            renderCart();
+        };
+
+        document.getElementById('checkoutBtn').addEventListener('click', () => {
+            alert('Оформлення замовлення...');
+           
+        });
+
+        window.onload = renderCart;
+    </script>
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>
